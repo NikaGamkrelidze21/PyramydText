@@ -18,6 +18,7 @@ function logAdded(word) {
 function logOmitted(word) {
     console.log("-","Ommited", ">>" + word+ "<<", "Lenght:", word.length)
 }
+// takes string > building pyramyd text and keeps it as string and list separately
 function buildPyramydText(text) {
     let words = text.trim().split(" ")
     let newTextList = []
@@ -47,10 +48,11 @@ function buildPyramydText(text) {
         finalList: newTextList
     }
 }
-function adjustPyramyd(text){
+// takes list of sentences > ajdusting them if their lengths are almost same > returing string and list 
+function adjustPyramyd(inpList){
     let prevElementLenght = 0
     let adjustedList = []
-    for (let currElement of enumerate(text.finalList)) {
+    for (let currElement of enumerate(inpList.finalList)) {
         
         let idx = currElement[0]
         let currValue = currElement[1]
@@ -62,7 +64,7 @@ function adjustPyramyd(text){
             prevElementLenght = 0
             adjustedValue = currValue.replace(" ", "  ", 1)
             adjustedList.push(adjustedValue)
-            text.finalList[idx] = adjustedValue
+            inpList.finalList[idx] = adjustedValue
         }
         else{
             adjustedList.push(currValue)
@@ -70,7 +72,7 @@ function adjustPyramyd(text){
         prevElementLenght = currValue.length
     }
     // this is to applay changes in buildPyramydText when ill make as class
-    text.finalText = text.finalList
+    inpList.finalText = inpList.finalList
     
     
     return {
@@ -79,7 +81,8 @@ function adjustPyramyd(text){
     }
 
 }
-function buildAdjustedPyramydText(text) {
+// takes string uses buildPyramydText and adjustPyramyd functions together > returns string and list 
+function buildAPT(text) {
     let converted = adjustPyramyd(buildPyramydText(text))
     return {
         text : converted.adjustedText,
@@ -87,4 +90,3 @@ function buildAdjustedPyramydText(text) {
     }
 }
 
-console.log(buildAdjustedPyramydText(data))
